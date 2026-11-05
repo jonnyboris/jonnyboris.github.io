@@ -4,15 +4,177 @@ html, body {
     margin: 0;
 }
 
-#editor {
-    height: 100%;
-    width: 90%;
-    margin: 2% auto;
-    font-size: 1.2em;
-    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
-
+body {
+    display: flex;
+    flex-direction: column;
+    color: #222;
+    background: #fff;
+    font-family: system-ui, sans-serif;
 }
 
-#editor:focus {
-    outline: none !important;
+#tab-bar {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: stretch;
+    padding: 0 8px;
+    background: #f3f3f3;
+    box-shadow: inset 0 -1px #ccc;
+}
+
+#tabs {
+    display: flex;
+    gap: 4px;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+.tab {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: stretch;
+    border: 1px solid transparent;
+}
+
+.tab.active {
+    border-color: #ccc;
+    border-bottom-color: #fff;
+    background: #fff;
+}
+
+.tab:hover {
+    background: #e7e7e7;
+}
+
+button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+#add-tab:hover, #menu-button:hover, .restore-tab:hover {
+    background: #e7e7e7;
+}
+
+button:focus-visible {
+    outline: 2px solid #4676ad;
+    outline-offset: -3px;
+}
+
+.tab-name, .tab-rename {
+    min-width: 100px;
+    max-width: 240px;
+    padding: 10px 8px 10px 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.tab-rename {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    outline: 2px solid #4676ad;
+    outline-offset: -3px;
+}
+
+.tab-close, #add-tab, #menu-button {
+    flex-shrink: 0;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 22px;
+}
+
+.tab-close {
+    color: #666;
+}
+
+.tab-close:hover {
+    color: #c62828;
+}
+
+#add-tab {
+    margin-left: 4px;
+}
+
+#menu-button {
+    margin-left: auto;
+}
+
+#menu-panel {
+    position: absolute;
+    top: 100%;
+    right: 8px;
+    z-index: 1;
+    box-sizing: border-box;
+    width: min(300px, calc(100vw - 16px));
+    max-height: min(400px, 70vh);
+    overflow-y: auto;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    box-shadow: 0 4px 12px #0002;
+    font-size: 14px;
+}
+
+#menu-panel h2 {
+    margin: 4px 8px 8px;
+    font-size: 14px;
+}
+
+#no-closed-tabs {
+    margin: 8px;
+    color: #666;
+}
+
+#closed-tabs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.restore-tab {
+    display: block;
+    width: 100%;
+    padding: 10px 8px;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#save-error {
+    margin: 0;
+    padding: 8px 5%;
+    color: #9b2626;
+    background: #fff0f0;
+    font-size: 14px;
+}
+
+#note-panel {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+#editor {
+    box-sizing: border-box;
+    min-height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 24px 0;
+    overflow-wrap: anywhere;
+    font-size: 1.2em;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    outline: none;
 }

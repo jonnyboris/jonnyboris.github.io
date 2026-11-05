@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+<head>
   <meta charset="UTF-8">
-  <title>Simple Editor V0.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Editor</title>
   <link href="css/editor.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="editor" contenteditable="true" spellcheck="true"></div>
+<div id="tab-bar">
+  <div id="tabs" role="tablist" aria-label="Notes"></div>
+  <button id="add-tab" type="button" aria-label="New tab" title="New tab">+</button>
+  <button id="menu-button" type="button" aria-label="Menu" title="Menu" aria-expanded="false" aria-controls="menu-panel">☰</button>
+  <section id="menu-panel" aria-labelledby="recently-closed-heading" hidden>
+    <h2 id="recently-closed-heading">Recently closed tabs</h2>
+    <p id="no-closed-tabs">No recently closed tabs.</p>
+    <ul id="closed-tabs"></ul>
+  </section>
+</div>
+<p id="save-error" role="alert" hidden></p>
+<main id="note-panel" role="tabpanel">
+  <div id="editor" contenteditable="true" spellcheck="true" role="textbox" aria-label="Note" aria-multiline="true"></div>
+</main>
 <script src="js/underscore.js"></script>
 <script src="js/editor.js"></script>
 </body>
