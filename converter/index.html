@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slate Conformer</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='9' width='26' height='18' rx='2' fill='%23f2b33d'/%3E%3Cpath d='M3 9l4-6h6l-4 6zm8 0l4-6h6l-4 6zm8 0l4-6h6l-4 6z' fill='%23222'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/index-CfYYY0Ox.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-vv1qW-Nq.css">
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <div>
+          <h1>Slate Conformer</h1>
+          <p>Matches short clips to a live H.264 stream's spec for seamless slate failover. Everything runs locally with WebCodecs, so nothing is uploaded.</p>
+        </div>
+      </div>
+      <div id="caps" class="caps"></div>
+    </header>
+
+    <main>
+      <section class="card" id="src-card">
+        <h2><span class="step">1</span> Source clip</h2>
+        <p class="hint">The short clip or still image to conform. MP4, MOV, WebM, MKV and TS are supported, and so are PNG and JPG stills, which become a video of the output duration.</p>
+        <div class="drop" id="src-drop" tabindex="0">
+          <input type="file" id="src-file" accept="video/*,image/*,.ts,.m2ts,.mkv,.mov" hidden />
+          <div id="src-label"><strong>Drop source clip</strong> or click to browse</div>
+        </div>
+        <video id="src-video" controls muted playsinline hidden></video>
+        <div id="src-info" class="probe"></div>
+      </section>
+
+      <details class="card collapsible" id="ref-card">
+        <summary><h2><span class="step">2</span> Reference stream <small>optional</small></h2></summary>
+        <div class="collapsible-body">
+          <p class="hint">Load a sample of the in-flight stream: an HLS URL (master or media playlist), an MP4 or TS URL, or a local segment or file. Its parameters can then be copied into the target spec.</p>
+          <div class="url-row">
+            <input id="ref-url" type="url" placeholder="https://…/master.m3u8" spellcheck="false" />
+            <button id="ref-load" class="btn">Load</button>
+          </div>
+          <div id="ref-variants" class="variants" hidden></div>
+          <div class="drop" id="ref-drop" tabindex="0">
+            <input type="file" id="ref-file" hidden />
+            <strong>Drop a reference file</strong> or click to browse <span>(.mp4 · .m4s · .ts · init+segment)</span>
+          </div>
+          <div id="ref-info" class="probe"></div>
+          <div class="actions" id="ref-actions" hidden>
+            <button id="ref-apply" class="btn primary">Apply reference → target spec</button>
+          </div>
+        </div>
+      </details>
+
+      <section class="card" id="spec-card">
+        <div class="card-head">
+          <h2><span class="step">3</span> Target spec</h2>
+          <div class="toolbar">
+            <select id="preset"><option value="">Presets…</option></select>
+            <button id="spec-import" class="btn ghost">Import JSON</button>
+            <button id="spec-export" class="btn ghost">Export JSON</button>
+            <button id="spec-reset" class="btn ghost">Reset</button>
+            <input type="file" id="spec-file" accept="application/json,.json" hidden />
+          </div>
+        </div>
+        <div class="summary" id="summary"></div>
+        <form id="spec-form" class="spec-form" onsubmit="return false"></form>
+      </section>
+
+      <section class="card" id="run-card">
+        <div class="card-head">
+          <h2><span class="step">4</span> Transcode</h2>
+          <div class="toolbar">
+            <button id="run" class="btn primary big" disabled>Transcode</button>
+            <button id="cancel" class="btn ghost" hidden>Cancel</button>
+          </div>
+        </div>
+        <div class="progress"><div id="bar"></div><span id="phase">Load a source clip to begin.</span></div>
+        <ol id="log" class="log"></ol>
+      </section>
+
+      <section class="card" id="out-card" hidden>
+        <h2><span class="step">5</span> Output &amp; verification</h2>
+        <div class="row two out">
+          <div>
+            <ul id="files" class="files"></ul>
+            <button id="dl-all" class="btn">Download all</button>
+            <video id="out-video" controls playsinline hidden></video>
+            <p id="out-note" class="hint"></p>
+          </div>
+          <div>
+            <div class="verify-head">
+              <h3>Re-probed output</h3>
+              <label class="inline"><input type="checkbox" id="only-diff" /> only differences</label>
+            </div>
+            <div id="verdict" class="verdict"></div>
+            <table id="verify" class="verify"></table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
